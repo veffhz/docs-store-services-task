@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: docs-server
+
+  datasource:
+    url: jdbc:derby:memory:docs;create=true
+    initialization-mode: embedded
+
+  jpa:
+    generate-ddl: false
+    database: default
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8081

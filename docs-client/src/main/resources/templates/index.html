@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Documents list</title>
+    <link type="text/css" rel="stylesheet" th:href="@{css/style.css}" />
+    <link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+
+<div sec:authorize="isAuthenticated()" class="logout">
+    <form method="post" action="/logout">
+        Welcome, <span sec:authentication="name">Username</span>
+        <button class="button-cosmo btn btn-link" type="submit">Log Out</button>
+    </form>
+</div>
+
+<h1>Documents:</h1>
+    <ul>
+        <li th:each="documentId : ${documentIds}">
+            <a th:href='@{|/details/${documentId}|}'>
+                <span th:text="'Document #' + ${documentId}"/>
+            </a>
+        </li>
+    </ul>
+    <div class="gap-30"></div>
+    <a class="btn btn-default" th:href="@{/new}">New file</a>
+</body>
+</html>

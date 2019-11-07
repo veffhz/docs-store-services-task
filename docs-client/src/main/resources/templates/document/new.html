@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8"/>
+    <title>New document</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/style.css}" />
+    <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+
+<div sec:authorize="isAuthenticated()" class="logout">
+    <form method="post" action="/logout">
+        Welcome, <span sec:authentication="name">Username</span>
+        <button class="button-cosmo btn btn-link" type="submit">Log Out</button>
+    </form>
+</div>
+
+<h1>New document:</h1>
+
+<form id="edit-form" th:action="@{/document}" th:object="${documentDto}" th:method="post" enctype="multipart/form-data">
+    <div class="row">
+        <label for="holder-fn-input">Name:</label>
+        <input id="holder-fn-input" name="name" type="text" th:field="*{name}" />
+    </div>
+
+    <div class="row">
+        <label for="holder-ln-input">Description:</label>
+        <input id="holder-ln-input" name="description" type="text" th:field="*{description}" />
+    </div>
+
+    <div class="row">
+        <label for="holder-fn-input">Filename:</label>
+        <input id="holder-f-input" name="file" type="file" />
+    </div>
+
+    <div class="row">
+        <button class="btn btn-default" type="submit">Save</button>
+        <a class="btn btn-default" th:href="@{/index}" >Cancel</a>
+    </div>
+</form>
+
+</body>
+</html>

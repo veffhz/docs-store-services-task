@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Document details</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/style.css}" />
+    <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+
+<div sec:authorize="isAuthenticated()" class="logout">
+    <form method="post" action="/logout">
+        Welcome, <span sec:authentication="name">Username</span>
+        <button class="button-cosmo btn btn-link" type="submit">Log Out</button>
+    </form>
+</div>
+
+<h1>Document details:</h1>
+
+<form id="edit-form" th:object="${documentDto}">
+    <div class="row">
+        <label for="id-input">ID:</label>
+        <input id="id-input" type="text" readonly="readonly" th:value="*{id}" />
+    </div>
+
+    <div class="row">
+        <label for="holder-fn-input">Name:</label>
+        <input id="holder-n-input" name="name" readonly="readonly" type="text" th:field="*{name}" />
+    </div>
+
+    <div class="row">
+        <label for="holder-ln-input">Description:</label>
+        <input id="holder-ln-input" name="description" readonly="readonly" type="text" th:field="*{description}" />
+    </div>
+
+    <div class="row">
+        <label for="holder-fn-input">Filename:</label>
+        <input id="holder-fn-input" name="filename" readonly="readonly" type="text" th:field="*{fileName}" />
+    </div>
+
+    <div class="row">
+        <label for="holder-fn-input">Content-Type:</label>
+        <input id="holder-ct-input" name="contentType" readonly="readonly" type="text" th:field="*{contentType}" />
+    </div>
+
+    <div class="row">
+        <label for="holder-fn-input">Content:</label>
+        &#128190;<a class="btn btn-link" th:href="@{|/download/*{id}|}" download>Download</a>
+    </div>
+
+    <div class="row">
+        <label for="holder-bd-input">Created Date:</label>
+        <input id="holder-bd-input" name="createdDate" readonly="readonly" type="datetime-local" th:field="*{createdDate}" />
+    </div>
+</form>
+
+<div class="row">
+    <a class="btn btn-default" th:href="@{/index}" >Back</a>
+</div>
+
+</body>
+</html>
