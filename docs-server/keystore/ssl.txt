@@ -1,0 +1,8 @@
+keytool -genkeypair -alias client -keyalg RSA -keysize 2048 -storetype JKS -keystore client.jks -validity 3650 -ext SAN=dns:localhost,ip:127.0.0.1
+keytool -genkeypair -alias server -keyalg RSA -keysize 2048 -storetype JKS -keystore server.jks -validity 3650 -ext SAN=dns:localhost,ip:127.0.0.1
+
+keytool -export -alias client -file client.crt -keystore client.jks
+keytool -export -alias server -file server.crt -keystore server.jks
+
+keytool -import -alias client -file client.crt -keystore server.jks
+keytool -import -alias server -file server.crt -keystore client.jks

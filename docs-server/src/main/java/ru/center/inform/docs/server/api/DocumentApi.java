@@ -1,6 +1,7 @@
 package ru.center.inform.docs.server.api;
 
 import com.fasterxml.jackson.annotation.JsonView;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
