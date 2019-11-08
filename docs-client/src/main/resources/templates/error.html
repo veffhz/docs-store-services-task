@@ -1,5 +1,5 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 	<title>Error</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -7,6 +7,14 @@
 	<link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>
 </head>
 <body>
+
+<div sec:authorize="isAuthenticated()" class="logout">
+	<form method="post" action="/logout">
+		Welcome, <span sec:authentication="name">Username</span>
+		<button class="button-cosmo btn btn-link" type="submit">Log Out</button>
+	</form>
+</div>
+
 <h3>Something went wrong</h3>
 <table class="table table-striped">
 	<tr>

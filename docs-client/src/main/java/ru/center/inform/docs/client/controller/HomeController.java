@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.io.IOUtils;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import ru.center.inform.docs.client.domain.DocumentDto;
 import ru.center.inform.docs.client.feign.DocumentClient;
+import ru.center.inform.docs.client.service.DocumentService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -26,6 +28,7 @@ import java.util.List;
 public class HomeController {
 
     private final DocumentClient documentClient;
+    private final DocumentService documentService;
 
     @GetMapping("/")
     public String home() {
@@ -51,7 +54,7 @@ public class HomeController {
 
     @GetMapping("/download/{id}")
     @ResponseBody
-    public String download(@PathVariable("id") Long id, HttpServletResponse response) {
+    public ResponseEntity<String> download(@PathVariable("id") Long id, HttpServletResponse response) {
         log.info("download document by {}", id);
 
         DocumentDto documentDto = documentClient.getDocumentFull(id);
@@ -68,8 +71,10 @@ public class HomeController {
 
         } catch (IOException e) {
             log.error(e.getMessage(), e);
+            throw new RuntimeException("Error download file!", e);
         }
-        return null;
+
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/new")

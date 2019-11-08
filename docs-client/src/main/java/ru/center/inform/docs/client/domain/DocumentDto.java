@@ -2,11 +2,9 @@ package ru.center.inform.docs.client.domain;
 
 import lombok.Data;
 import lombok.ToString;
-import org.springframework.data.annotation.CreatedDate;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
-import java.sql.Blob;
 import java.time.LocalDateTime;
 
 @Data

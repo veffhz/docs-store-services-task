@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import ru.center.inform.docs.client.config.FeignConfiguration;
 import ru.center.inform.docs.client.domain.DocumentDto;
 
 import java.util.List;
@@ -12,8 +13,10 @@ import java.util.List;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
-@FeignClient(value = "docs-server", url = "http://localhost:8081")
+@FeignClient(value = "docs-server", url = DocumentClient.SERVER_URL, configuration = FeignConfiguration.class)
 public interface DocumentClient {
+
+    String SERVER_URL = "https://localhost:8081";
 
     @RequestMapping(method = GET, value = "/api/document", consumes = "application/json")
     List<Long> getDocumentIds();
