@@ -4,8 +4,8 @@ public class DecryptDataException extends RuntimeException {
 
     private static final String MESSAGE = "Decrypt data error!";
 
-    public DecryptDataException() {
-        super(MESSAGE);
+    public DecryptDataException(String message) {
+        super(message);
     }
 
     public DecryptDataException(String message, Throwable cause) {

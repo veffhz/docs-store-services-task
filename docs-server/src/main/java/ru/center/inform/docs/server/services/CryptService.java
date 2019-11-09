@@ -5,4 +5,5 @@ public interface CryptService {
     byte[] decryptData(byte[] encryptedData);
     byte[] signData(byte[] data);
     boolean verifySignedData(byte[] signedData);
+    byte[] getOriginalData(byte[] signedData);
 }

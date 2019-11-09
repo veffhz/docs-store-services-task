@@ -2,6 +2,7 @@ package ru.center.inform.docs.server.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.bouncycastle.asn1.ASN1InputStream;
 import org.bouncycastle.asn1.cms.ContentInfo;
 import org.bouncycastle.cert.X509CertificateHolder;
@@ -14,18 +15,21 @@ import org.bouncycastle.operator.OutputEncryptor;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 import org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder;
 import org.bouncycastle.util.Store;
+
 import org.springframework.util.Assert;
+
 import ru.center.inform.docs.server.exception.DecryptDataException;
 import ru.center.inform.docs.server.exception.EncryptDataException;
 import ru.center.inform.docs.server.services.CryptService;
 
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+
 import java.security.PrivateKey;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -46,7 +50,7 @@ public class CryptServiceImpl implements CryptService {
             return encrypt(data);
         } catch (CertificateEncodingException | CMSException | IOException e) {
             log.error(e.getMessage(), e);
-            throw new EncryptDataException(e.getMessage(), e);
+            throw new EncryptDataException(e.getMessage());
         }
     }
 
@@ -58,7 +62,7 @@ public class CryptServiceImpl implements CryptService {
             return decrypt(encryptedData);
         } catch (CMSException e) {
             log.error(e.getMessage(), e);
-            throw new DecryptDataException(e.getMessage(), e);
+            throw new DecryptDataException(e.getMessage());
         }
     }
 
@@ -70,7 +74,7 @@ public class CryptServiceImpl implements CryptService {
             return sign(data);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            throw new RuntimeException(e.getMessage(), e);
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -82,7 +86,21 @@ public class CryptServiceImpl implements CryptService {
             return verify(signedData);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            throw new RuntimeException(e.getMessage(), e);
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Override
+    public byte[] getOriginalData(byte[] data) {
+        log.info("getOriginalData");
+
+        try {
+            CMSSignedData signedData = new CMSSignedData(data);
+            CMSTypedData signedContent = signedData.getSignedContent();
+            return (byte[]) signedContent.getContent();
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            throw new RuntimeException(e.getMessage());
         }
     }
 
