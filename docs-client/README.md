@@ -23,4 +23,3 @@ Pages:
 * /login - Default login page (`user`, `password`)
 * /index - List documents ids, service contains several test documents
 * /details/{id} - Document detail
-
