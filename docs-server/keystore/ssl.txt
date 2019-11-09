@@ -6,3 +6,6 @@ keytool -export -alias server -file server.crt -keystore server.jks
 
 keytool -import -alias client -file client.crt -keystore server.jks
 keytool -import -alias server -file server.crt -keystore client.jks
+
+keytool -genkeypair -alias crypto -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore crypto.p12 -validity 3650
+keytool -export -alias crypto -file crypto.crt -keystore crypto.p12

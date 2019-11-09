@@ -7,9 +7,12 @@ import org.springframework.context.annotation.Configuration;
 
 import ru.center.inform.docs.server.domain.Document;
 import ru.center.inform.docs.server.repository.DocumentRepository;
+import ru.center.inform.docs.server.services.CryptService;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 @Slf4j
 @Configuration
@@ -18,12 +21,38 @@ public class AppConfig {
     @Autowired
     private DocumentRepository documentRepository;
 
-    @PostConstruct
-    public void init() {
-        Document document = documentRepository.save(new Document(null, "file2", "description",
-                "test2.txt", "text/plain", "follow the white rabbit!".getBytes(), LocalDateTime.now()));
+    @Autowired
+    private CryptService cryptService;
 
-        log.info(document.toString());
+    @PostConstruct
+    public void insertDbTestData() {
+        documents().forEach(document -> {
+            Document saved = documentRepository.save(document);
+            log.info(String.valueOf(saved));
+        });
+    }
+
+    private List<Document> documents() {
+        return Arrays.asList(
+                new Document(
+                        null,
+                        "file",
+                        "Description",
+                        "test.csv",
+                        "text/csv",
+                        cryptService.encryptData("#1,#2,#3\naaa,bbb,ccc".getBytes()),
+                        LocalDateTime.now()
+                ),
+                new Document(
+                        null,
+                        "file2",
+                        "Description",
+                        "test2.txt",
+                        "text/plain",
+                        cryptService.encryptData("follow the white rabbit!".getBytes()),
+                        LocalDateTime.now()
+                )
+        );
     }
 
 }
