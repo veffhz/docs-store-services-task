@@ -1,15 +1,26 @@
-Сделать maven или gradle проект клиента.
+# Document store client
 
-Клиент должен быть с авторизацией по логину и паролю (хранить в бд). Пароль шифровать конечно же (BCrypt).
-Клиент должен по SSL(TLS) конектиться к серверу.
+* Spring mvc, data, security
+* Bouncy Castle
+* Apache Derby (Embedded)
 
-Клиент должен иметь возможность:
-- выводить список документов,
-- открывать конкретный документ при выборе его из списка,
-- отправлять документ в формате PKCS7 на сервер (оптравка через GUI, путем выбора файла на диске).
+#### requirements:
+java 8-11, gradle.
 
-Проект сделать на Spring Boot.
+#### build
+`./gradlew clean build`
 
-БД Embedded Derby. Использовать Spring Data JPA
+#### run
+`./gradlew bootRun` or `java -jar build/libs/docs-client.jar`
 
-Для gui использовать thymeleaf + material.
+#### documentation
+
+Domain model:
+* DocumentDto
+* User
+
+Pages:
+* /login - Default login page (`user`, `password`)
+* /index - List documents ids, service contains several test documents
+* /details/{id} - Document detail
+
