@@ -1,15 +1,25 @@
-Сделать maven или gradle проект сервера.
+# Document store service
 
-Сервер должен быть с авторизацией по PKI (RSA) сертификату. Выпустить самоподписаный серт можно утилитой keytool из jdk.
-Сервер должен иметь Restful API. 
+* Spring mvc, data, security (x509 auth)
+* Bouncy Castle
+* Apache Derby (Embedded)
 
-Запросы: 
-- GET просмотр документа по ID,
-- GET получение списка ID всех документов в виде json,
-- POST отправка post запроса с документом в PKCS7 конверте (выпустить также самоподписаный RSA).  
+#### requirements:
+java 8-11, gradle.
 
-На сервере нужно проверять подпись и сохранять в БД, если подпись валидна.
+#### build
+`./gradlew clean build`
 
-Проект сделать на Spring Boot.
+#### run
+`./gradlew bootRun` or `java -jar build/libs/docs-server.jar`
 
-БД Embedded Derby. Использовать Spring Data JPA
+#### documentation
+
+Domain model:
+* Document
+
+Rest apis (x509 auth):
+* /api/document GET (DB contains several test documents)
+* /api/document/{id} GET
+* /api/document/{id}/content GET
+* /api/document POST
