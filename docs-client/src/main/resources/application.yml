@@ -21,11 +21,11 @@ server:
   port: 8082
   ssl:
     enabled: false
-    key-store: classpath:client.jks
+    key-store: classpath:pki/client.jks
     key-store-password: 123456
     key-alias: client
     key-store-type: JKS
     key-store-provider: SUN
-    trust-store: classpath:client.jks
+    trust-store: classpath:pki/client.jks
     trust-store-password: 123456
     trust-store-type: JKS

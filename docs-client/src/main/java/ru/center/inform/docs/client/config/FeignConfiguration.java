@@ -23,7 +23,7 @@ import java.security.*;
 public class FeignConfiguration {
 
     public static final String JKS_PASSWORD = "123456";
-    public static final String CLIENT_JKS = "client.jks";
+    public static final String CLIENT_JKS = "pki/client.jks";
 
 //    @Bean
 //    public RestTemplate getRestTemplate() {
@@ -34,7 +34,7 @@ public class FeignConfiguration {
 //
 //        try {
 //            keyStore = KeyStore.getInstance("jks");
-//            ClassPathResource classPathResource = new ClassPathResource("client.jks");
+//            ClassPathResource classPathResource = new ClassPathResource("pki/client.jks");
 //            InputStream inputStream = classPathResource.getInputStream();
 //            keyStore.load(inputStream, "123456".toCharArray());
 //
