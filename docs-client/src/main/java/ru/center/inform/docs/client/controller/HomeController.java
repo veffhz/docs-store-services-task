@@ -14,7 +14,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import ru.center.inform.docs.client.domain.DocumentDto;
 import ru.center.inform.docs.client.feign.DocumentClient;
-import ru.center.inform.docs.client.service.DocumentService;
+import ru.center.inform.docs.client.service.CryptService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -28,7 +28,7 @@ import java.util.List;
 public class HomeController {
 
     private final DocumentClient documentClient;
-    private final DocumentService documentService;
+    private final CryptService cryptService;
 
     @GetMapping("/")
     public String home() {
@@ -64,8 +64,12 @@ public class HomeController {
             response.setHeader("Content-Disposition", contentHeader);
             OutputStream out = response.getOutputStream();
             response.setContentType(documentDto.getContentType());
-            response.setContentLength(documentDto.getContent().length);
-            IOUtils.write(documentDto.getContent(), out);
+
+            byte[] decryptData = cryptService.decryptData(documentDto.getContent());
+            response.setContentLength(decryptData.length);
+
+            IOUtils.write(decryptData, out);
+
             out.flush();
             out.close();
 
@@ -91,9 +95,12 @@ public class HomeController {
         log.info("post documentDto: {}, file {}", documentDto, file);
 
         try {
-            documentDto.setFileName(file.getName());
+            documentDto.setFileName(file.getOriginalFilename());
             documentDto.setContentType(file.getContentType());
-            documentDto.setContent(file.getBytes());
+
+            byte[] encryptData = cryptService.encryptData(file.getBytes());
+            documentDto.setContent(encryptData);
+
             documentDto.setCreatedDate(LocalDateTime.now());
 
             DocumentDto newDocumentDto = documentClient.sendDocument(documentDto);
