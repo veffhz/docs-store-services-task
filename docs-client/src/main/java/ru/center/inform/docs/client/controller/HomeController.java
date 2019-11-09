@@ -66,9 +66,11 @@ public class HomeController {
             response.setContentType(documentDto.getContentType());
 
             byte[] decryptData = cryptService.decryptData(documentDto.getContent());
-            response.setContentLength(decryptData.length);
+            byte[] originalData = cryptService.getOriginalData(decryptData);
 
-            IOUtils.write(decryptData, out);
+            response.setContentLength(originalData.length);
+
+            IOUtils.write(originalData, out);
 
             out.flush();
             out.close();
@@ -98,7 +100,9 @@ public class HomeController {
             documentDto.setFileName(file.getOriginalFilename());
             documentDto.setContentType(file.getContentType());
 
-            byte[] encryptData = cryptService.encryptData(file.getBytes());
+            byte[] signedData = cryptService.signData(file.getBytes());
+            byte[] encryptData = cryptService.encryptData(signedData);
+
             documentDto.setContent(encryptData);
 
             documentDto.setCreatedDate(LocalDateTime.now());

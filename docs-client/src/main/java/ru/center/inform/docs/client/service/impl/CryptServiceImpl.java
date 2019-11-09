@@ -48,7 +48,7 @@ public class CryptServiceImpl implements CryptService {
             return encrypt(data);
         } catch (CertificateEncodingException | CMSException | IOException e) {
             log.error(e.getMessage(), e);
-            throw new EncryptDataException(e.getMessage(), e);
+            throw new EncryptDataException(e.getMessage());
         }
     }
 
@@ -60,7 +60,7 @@ public class CryptServiceImpl implements CryptService {
             return decrypt(encryptedData);
         } catch (CMSException e) {
             log.error(e.getMessage(), e);
-            throw new DecryptDataException(e.getMessage(), e);
+            throw new DecryptDataException(e.getMessage());
         }
     }
 
@@ -72,7 +72,7 @@ public class CryptServiceImpl implements CryptService {
             return sign(data);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            throw new RuntimeException(e.getMessage(), e);
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -84,7 +84,21 @@ public class CryptServiceImpl implements CryptService {
             return verify(signedData);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            throw new RuntimeException(e.getMessage(), e);
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    @Override
+    public byte[] getOriginalData(byte[] data) {
+        log.info("getOriginalData");
+
+        try {
+            CMSSignedData signedData = new CMSSignedData(data);
+            CMSTypedData signedContent = signedData.getSignedContent();
+            return (byte[]) signedContent.getContent();
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            throw new RuntimeException(e.getMessage());
         }
     }
 

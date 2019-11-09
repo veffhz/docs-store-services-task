@@ -4,8 +4,8 @@ public class EncryptDataException extends RuntimeException {
 
     private static final String MESSAGE = "Encrypt data error!";
 
-    public EncryptDataException() {
-        super(MESSAGE);
+    public EncryptDataException(String message) {
+        super(message);
     }
 
     public EncryptDataException(String message, Throwable cause) {
