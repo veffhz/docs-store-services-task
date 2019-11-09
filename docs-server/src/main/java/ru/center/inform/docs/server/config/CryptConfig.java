@@ -21,8 +21,8 @@ import java.security.cert.X509Certificate;
 @Configuration
 public class CryptConfig {
 
-    public static final String CRYPTO_CRT = "crypto.crt";
-    public static final String CRYPTO_P12 = "crypto.p12";
+    public static final String CRYPTO_CRT = "pki/crypto.crt";
+    public static final String CRYPTO_P12 = "pki/crypto.p12";
     public static final String PASSWORD = "123456";
     public static final String ALIAS = "crypto";
 
