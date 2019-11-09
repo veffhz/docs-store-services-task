@@ -33,6 +33,9 @@ public class AppConfig {
     }
 
     private List<Document> documents() {
+        byte[] signData1 = cryptService.signData("#1,#2,#3\naaa,bbb,ccc".getBytes());
+        byte[] signData2 = cryptService.signData("follow the white rabbit!".getBytes());
+
         return Arrays.asList(
                 new Document(
                         null,
@@ -40,7 +43,7 @@ public class AppConfig {
                         "Description",
                         "test.csv",
                         "text/csv",
-                        cryptService.encryptData("#1,#2,#3\naaa,bbb,ccc".getBytes()),
+                        cryptService.encryptData(signData1),
                         LocalDateTime.now()
                 ),
                 new Document(
@@ -49,7 +52,7 @@ public class AppConfig {
                         "Description",
                         "test2.txt",
                         "text/plain",
-                        cryptService.encryptData("follow the white rabbit!".getBytes()),
+                        cryptService.encryptData(signData2),
                         LocalDateTime.now()
                 )
         );
