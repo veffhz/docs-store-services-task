@@ -47,4 +47,9 @@ public class DocumentServiceImpl implements DocumentService {
         return repository.getAllIds();
     }
 
+    @Override
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
+
 }

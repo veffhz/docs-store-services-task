@@ -26,7 +26,7 @@ public class DocumentApi {
     @GetMapping("/api/document/{id}")
     @JsonView(Views.Document.class)
     public ResponseEntity<Document> get(@PathVariable("id") Long id) {
-        log.info("Get document by {}", id);
+        log.info("Get document by id {}", id);
         Document document = documentService.getLazy(id);
         return ResponseEntity.ok().body(document);
     }
@@ -34,7 +34,7 @@ public class DocumentApi {
     @GetMapping("/api/document/{id}/content")
     @JsonView(Views.DocumentFull.class)
     public ResponseEntity<Document> getWithContent(@PathVariable("id") Long id) {
-        log.info("Get document with content by {}", id);
+        log.info("Get document with content by id {}", id);
         Document document = documentService.get(id);
         return ResponseEntity.ok().body(document);
     }
@@ -51,6 +51,13 @@ public class DocumentApi {
         log.info("Create document {}", document);
         Document savedDocument = documentService.save(document);
         return new ResponseEntity<>(savedDocument, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/api/document/{id}")
+    public ResponseEntity<String> deleteDocument(@PathVariable("id") Long id) {
+        log.info("Delete document by id {}", id);
+        documentService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

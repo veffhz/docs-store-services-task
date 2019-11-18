@@ -9,4 +9,5 @@ public interface DocumentService {
     Document get(Long id);
     Document getLazy(Long id);
     List<Long> getAllIds();
+    void delete(Long id);
 }
