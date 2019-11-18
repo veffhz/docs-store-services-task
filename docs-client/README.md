@@ -20,6 +20,6 @@ Domain model:
 * User
 
 Pages:
-* /login - Default login page (`user`, `password`)
+* /login - Default login page (`user`, `password`, `admin`, `p@ssw0rd`)
 * /index - List documents ids, service contains several test documents
-* /details/{id} - Document detail
+* /details/{id} - Document detail, delete button (`admin_role` only)
