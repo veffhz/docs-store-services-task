@@ -22,4 +22,5 @@ Rest apis (x509 auth):
 * /api/document GET (DB contains several test documents)
 * /api/document/{id} GET
 * /api/document/{id}/content GET
+* /api/document/{id} DELETE
 * /api/document POST
