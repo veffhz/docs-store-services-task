@@ -55,7 +55,11 @@
 </form>
 
 <div class="row">
-    <a class="btn btn-default" th:href="@{/index}" >Back</a>
+    <a class="btn btn-default" th:href="@{/index}">Back</a>
+
+    <form sec:authorize="hasRole('ROLE_ADMIN')" class="form-inline" th:action="@{|/delete/*{id}|}" th:method="post">
+        <button class="btn btn-default" type="submit">Delete</button>
+    </form>
 </div>
 
 </body>

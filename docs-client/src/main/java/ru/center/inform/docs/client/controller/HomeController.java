@@ -17,6 +17,7 @@ import ru.center.inform.docs.client.feign.DocumentClient;
 import ru.center.inform.docs.client.service.CryptService;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.time.LocalDateTime;
@@ -50,6 +51,15 @@ public class HomeController {
         DocumentDto documentDto = documentClient.getDocument(id);
         model.addAttribute("documentDto", documentDto);
         return "document/details";
+    }
+
+    @PostMapping("/delete/{id}")
+    public RedirectView delete(@PathVariable("id") Long id) {
+        documentClient.deleteDocument(id);
+        RedirectView rv = new RedirectView();
+        rv.setContextRelative(true);
+        rv.setUrl("/index");
+        return rv;
     }
 
     @GetMapping("/download/{id}")
@@ -92,7 +102,7 @@ public class HomeController {
     }
 
     @PostMapping("/document")
-    public RedirectView sendDocumentDto(@ModelAttribute("documentDto") DocumentDto documentDto,
+    public RedirectView sendDocumentDto(@Valid @ModelAttribute("documentDto") DocumentDto documentDto,
                                         @RequestParam("file") MultipartFile file) {
         log.info("post documentDto: {}, file {}", documentDto, file);
 

@@ -20,17 +20,17 @@
 <form id="edit-form" th:action="@{/document}" th:object="${documentDto}" th:method="post" enctype="multipart/form-data">
     <div class="row">
         <label for="holder-fn-input">Name:</label>
-        <input id="holder-fn-input" name="name" type="text" th:field="*{name}" />
+        <input id="holder-fn-input" name="name" type="text" th:field="*{name}" th:required="required" />
     </div>
 
     <div class="row">
         <label for="holder-ln-input">Description:</label>
-        <input id="holder-ln-input" name="description" type="text" th:field="*{description}" />
+        <input id="holder-ln-input" name="description" type="text" th:field="*{description}" th:required="required" />
     </div>
 
     <div class="row">
         <label for="holder-fn-input">File:</label>
-        <input id="holder-f-input" name="file" type="file" />
+        <input id="holder-f-input" name="file" type="file" th:required="required" />
     </div>
 
     <div class="row">

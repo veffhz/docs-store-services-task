@@ -3,8 +3,8 @@
 <head>
 	<title>Error</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link type="text/css" rel="stylesheet" th:href="@{css/style.css}" />
-	<link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>
+	<link type="text/css" rel="stylesheet" th:href="@{/css/style.css}" />
+	<link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
 </head>
 <body>
 
@@ -20,10 +20,12 @@
 	<tr>
 		<th>status</th>
 		<th>error</th>
+		<th>message</th>
 	</tr>
 	<tr>
 		<td th:text="${status}"></td>
 		<td th:text="${error}"></td>
+		<td th:text="${message}"></td>
 	</tr>
 </table>
 
